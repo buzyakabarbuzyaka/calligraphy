@@ -8,18 +8,20 @@ def atbash(dat):
     ans = ""
     for c in dat:
         i = ALPHABET.find(c.upper())
-
         if i < 0:
             ans += c
         else:
-            ans += ALPHABET[N - i - 1]
+            if c == c.upper():
+                ans += ALPHABET[N - i - 1]
+            else:
+                ans += (ALPHABET[N - i - 1]).lower()
 
     return ans
 
 
 if __name__ == "__main__":
     # ===
-    assert atbash("АБВ") == "ЯЮЭ", print("ans:", atbash("АБВ"))
+    assert atbash("АБВ") == "ЯЮЭ", print('ans:', atbash("АБВ"))
     # ===
     _question = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
     _ans = 'ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЕДГВБА'
