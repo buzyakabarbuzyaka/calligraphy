@@ -1,3 +1,5 @@
+# coding: utf8
+
 ALPHABET = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
 N = len(ALPHABET)
 
@@ -5,13 +7,13 @@ N = len(ALPHABET)
 def atbash(dat):
     ans = ""
     for c in dat:
-        if c == " ":
-            ans += " "
-            continue
         i = ALPHABET.find(c.upper())
+
         if i < 0:
-            continue
-        ans += ALPHABET[N - i - 1]
+            ans += c
+        else:
+            ans += ALPHABET[N - i - 1]
+
     return ans
 
 

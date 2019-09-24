@@ -1,3 +1,5 @@
+# coding: utf8
+
 import warnings
 warnings.filterwarnings("ignore")
 
