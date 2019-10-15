@@ -1,6 +1,6 @@
 # coding: utf8
 
-from _1_atbash import *
+from _3_polybius_checkerboard import *
 
 s = input("Введите данные: ")
-print("Ответ:", atbash(s))
+print("Ответ:", polybius_checkerboard_decode(s))
