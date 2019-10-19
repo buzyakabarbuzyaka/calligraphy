@@ -5,13 +5,13 @@ CHECKERBOARD = ("АБВГДЕ",
                 "МНОПРС",
                 "ТУФХЦЧ",
                 "ШЩЪЫЬЭ",
-                "ЮЯ-")
+                "ЮЯ ")
 N = len(CHECKERBOARD)
 M = len(CHECKERBOARD[0])
 
 
 def polybius_checkerboard_incode(input_str: str):
-    processed_str = "".join([c.upper() if c != " " else "" for c in input_str])
+    processed_str = "".join([c.upper() for c in input_str])
     ans = []
     for c in processed_str:
         for i in range(N):
