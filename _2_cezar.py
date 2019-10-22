@@ -4,7 +4,7 @@ ALPHABET = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
 N = len(ALPHABET)
 
 
-def cezar(dat, shift=3):
+def cezar_encode(dat, shift=0):
     ans = ""
     for c in dat:
         i = ALPHABET.find(c.upper())
@@ -12,13 +12,17 @@ def cezar(dat, shift=3):
     return ans
 
 
+def cezar_decode(dat, shift=0):
+    return cezar_encode(dat, -shift)
+
+
 if __name__ == "__main__":
     # ===
     _question = 'АБВ'
     _ans = 'ГДЕ'
-    assert cezar(_question) == _ans, print("ans:", cezar(_question))
+    assert cezar_encode(_question) == _ans, print("ans:", cezar(_question))
 
     # ===
     _question = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
     _ans = 'ГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВ'
-    assert cezar(_question) == _ans, print("ans:", cezar(_question), _ans)
+    assert cezar_encode(_question) == _ans, print("ans:", cezar(_question), _ans)
