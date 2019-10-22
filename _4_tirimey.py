@@ -35,5 +35,7 @@ def tirimey_decrypt(message_to_decode):
 
 if __name__ == '__main__':
     print(*TABLE, sep="\n")
-    print(tirimey_encrypt("АБВ"))
-    print(tirimey_decrypt("АВД"))
+    msg = "АБВ"
+    tmp = tirimey_encrypt(msg)
+    print(tmp)
+    print(tirimey_decrypt(tmp))
