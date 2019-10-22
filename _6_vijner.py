@@ -1,30 +1,28 @@
 # coding: utf8
-
-ALPHABET = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ '
-N = len(ALPHABET)
-TABLE = [ALPHABET[i::] + ALPHABET[0:i:] for i in range(N)]
-NAVIGATOR = dict(zip(list(ALPHABET), TABLE))
+from calligraphy._5_Belazo import belazo_encrypt, belazo_decrypt
 
 
-def format_string(to_format):
-    return "".join(letter for letter in to_format.upper() if ALPHABET.find(letter) >= 0)
+def vijner_encrypt(message_to_encrypt, key_letter: str):
+    return belazo_encrypt(message_to_encrypt, key_letter + message_to_encrypt)
 
 
-def vijner_encrypt(message_to_encrypt, password: str):
+def vijner_decrypt(message_to_decrypt, key_letter: str):
+    current_key_letter = key_letter
+    decrypted_message = []
+    for letter in message_to_decrypt:
+        current_key_letter = belazo_decrypt(letter, current_key_letter)
+        decrypted_message += current_key_letter
+
+    return "".join(decrypted_message)
+
+
+def vijner_double_encrypt(message_to_encrypt, key_letter: str):
     pass
 
-
-def vijner_decrypt(message_to_decrypt, password: str):
-    pass
-
-
-def vijner_double_encrypt(message_to_encrypt, password: str):
-    pass
-
-
-def vijner_double_decrypt(message_to_decrypt, password: str):
+def vijner_double_decrypt(message_to_decrypt, key_letter: str):
     pass
 
 
 if __name__ == '__main__':
-    pass
+    print(vijner_encrypt("ЖОПА", "Л"))
+    print(vijner_decrypt("СФЭП", "Л"))

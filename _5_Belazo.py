@@ -10,14 +10,6 @@ def format_string(to_format):
     return "".join(letter for letter in to_format.upper() if ALPHABET.find(letter) >= 0)
 
 
-def form_table(password):
-    table = []
-    for letter in password:
-        i = ALPHABET.find(letter)
-        table += [ALPHABET[i::] + ALPHABET[:i:]]
-    return table
-
-
 def generate_password_underline(gen_line_len, password_format):
     repetitions_count = gen_line_len // len(password_format)
     left_symbols_count = gen_line_len % len(password_format)
