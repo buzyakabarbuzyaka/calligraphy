@@ -15,7 +15,11 @@ N = len(CRYPT_TABLE)
 def cyclic_bit_move(hex_str: str, num_of_bits: int):
     """n>0: >>
         n<0: <<"""
-    num_of_bytes = ceil(num_of_bits / 8)
+    num_of_unchanged_bytes = num_of_bits // 8
+    index_of_changing_byte = num_of_bits // 8
+    # num_of_bytes = len(hex_str) if len(hex_str)>num_of_bytes else num_of_bytes
+    # TODO: Проверить на переполнение строки
+    bit_to_change = "{0:b}".format(int(hex_str[index_of_changing_byte], base=16))
 
 
 def magma_encode(message_to_encode):
