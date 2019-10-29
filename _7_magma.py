@@ -1,5 +1,6 @@
 # coding: utf8
 from math import ceil
+
 CRYPT_TABLE = ["c462a5b9e8d703f1",
                "68239a5c1e47bd0f",
                "b3582fade174c960",
@@ -11,15 +12,32 @@ CRYPT_TABLE = ["c462a5b9e8d703f1",
 N = len(CRYPT_TABLE)
 
 
-# TODO: доделать циклический сдвиг
-def cyclic_bit_move(hex_str: str, num_of_bits: int):
-    """n>0: >>
-        n<0: <<"""
-    num_of_unchanged_bytes = num_of_bits // 8
-    index_of_changing_byte = num_of_bits // 8
-    # num_of_bytes = len(hex_str) if len(hex_str)>num_of_bytes else num_of_bytes
-    # TODO: Проверить на переполнение строки
-    bit_to_change = "{0:b}".format(int(hex_str[index_of_changing_byte], base=16))
+def cyclic_left(hex_str: str, nbits: int):
+    if hex_str == "":
+        return ""
+
+    num_of_bits_in_str = len(hex_str) * 4
+    nbits = nbits % num_of_bits_in_str
+    num = int(hex_str, 16)
+    tail = num >> num_of_bits_in_str - nbits
+    front = tail << num_of_bits_in_str
+    return "{:x}".format(((num << nbits) | tail) ^ front)
+
+
+def cyclic_right(hex_str: str, nbits: int):
+    if hex_str == "":
+        return ""
+
+    num_of_bits_in_str = len(hex_str) * 4
+    nbits = nbits % num_of_bits_in_str
+    addition = 2 ** num_of_bits_in_str  # добавление незначащих битов
+    num = int(hex_str, 16)
+    num = num | addition
+
+    tail = (num >> nbits) ^ (addition >> nbits)
+    front = tail << num_of_bits_in_str
+    nbits_to_left = num_of_bits_in_str - nbits
+    return "{:x}".format((((num << nbits_to_left) | tail) ^ front) ^ (addition << nbits_to_left))
 
 
 def magma_encode(message_to_encode):
@@ -27,10 +45,13 @@ def magma_encode(message_to_encode):
     encrypted_msg = []
     for i, b in enumerate(converted_msg):
         encrypted_msg += CRYPT_TABLE[i % N][int(b, 16)]
-    return "".join(encrypted_msg)
+    tmp = "".join(encrypted_msg)
+    return cyclic_left(tmp, 11)
 
 
 def magma_decode(message_to_decode):
+    message_to_decode = cyclic_right(message_to_decode, 11)
+    print(message_to_decode)
     decrypted_msg = []
     for i, b in enumerate(message_to_decode):
         decrypted_msg.append(CRYPT_TABLE[i % N].find(b))

@@ -1,14 +1,11 @@
 # coding: utf8
+from calligraphy.opt import remove_symbols
 import numpy as np
 from math import ceil
 
 
 class MatrixError(Exception):
     pass
-
-
-def remove_symbols(to_format: str):
-    return "".join([c for c in to_format if (c.lower() != c.upper()) or c == ' '])
 
 
 def supplement_vector(index_array, matrix_size: int):
@@ -25,7 +22,7 @@ def matrix_encode_rus(message_to_encode: str, matrix):
         raise MatrixError("Матрица не имеет обратной")
 
     # format_msg = remove_symbols(message_to_encode).upper()
-    format_msg=message_to_encode  # Без форматирования тоже работает
+    format_msg = message_to_encode  # Без форматирования тоже работает
     index_array = np.array([ord(c) - ord('А') + 1 for c in format_msg], dtype=int)
     index_array = np.concatenate((index_array, supplement_vector(index_array, format_matrix.shape[0])))
     n = format_matrix.shape[0]
