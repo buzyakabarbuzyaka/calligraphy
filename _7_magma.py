@@ -1,5 +1,4 @@
 # coding: utf8
-from math import ceil
 
 CRYPT_TABLE = ["c462a5b9e8d703f1",
                "68239a5c1e47bd0f",
